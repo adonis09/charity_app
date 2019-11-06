@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{css/style.css}"/>
+</head>
+<body>
+<header class="header--form-page">
+    <nav class="container container--70">
+        <ul class="nav--actions">
+            <li class="logged-user">
+                Witaj Agata
+                <ul class="dropdown">
+                    <li><a th:href="@{#}">Profil</a></li>
+                    <li><a th:href="@{#}">Moje zbiórki</a></li>
+                    <li><a th:href="@{#}">Wyloguj</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div th:replace="header.html"></div>
+
+    </nav>
+
+    <div class="slogan container container--90">
+        <h2>
+            Dziękujemy za przesłanie formularza Na maila prześlemy wszelkie
+            informacje o odbiorze.
+        </h2>
+    </div>
+</header>
+
+<div th:replace="footer.html"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
