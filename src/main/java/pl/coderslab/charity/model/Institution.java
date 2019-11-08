@@ -1,29 +1,26 @@
 package pl.coderslab.charity.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Getter
+@Setter
+@ToString
 @Table(name="institution")
 public class Institution {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(name = "name", unique = true)
+    @Column(unique = true)
     private String name;
 
-    @Column(name = "description")
     private String description;
 
 }

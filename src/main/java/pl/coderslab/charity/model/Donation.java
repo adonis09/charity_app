@@ -1,9 +1,6 @@
 package pl.coderslab.charity.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -11,20 +8,20 @@ import java.sql.Time;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
-@Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Getter
+@Setter
+@ToString
 @Table(name="donation")
 public class Donation {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(name = "quantity")
     private int quantity;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -37,10 +34,8 @@ public class Donation {
     @JoinColumn(name = "institution_id")
     private Institution institution;
 
-    @Column(name = "street")
     private String street;
 
-    @Column(name = "city")
     private String city;
 
     @Column(name = "zipcode")
