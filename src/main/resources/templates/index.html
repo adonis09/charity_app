@@ -95,7 +95,17 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <li>
+
+            <!---->
+            <li th:each="institution: ${allInstitutions}">
+                <div class="col">
+                    <div class="title" th:text="'Fundacja ' + '&quot' + ${institution.name} + '&quot'"></div>
+                    <div class="subtitle" th:text="'Cel i misja: ' + ${institution.description}"></div>
+                </div>
+            </li>
+            <!---->
+
+            <!--<li>
                 <div class="col">
                     <div class="title">Fundacja "Dbam o Zdrowie"</div>
                     <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
@@ -117,7 +127,7 @@
                     <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
                 </div>
 
-            </li>
+            </li>-->
 
         </ul>
 
