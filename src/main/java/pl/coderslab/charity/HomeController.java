@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.Institution;
-import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.service.InstitutionService;
 
 import java.util.List;
