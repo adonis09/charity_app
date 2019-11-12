@@ -1,5 +1,24 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+  var insTitles = $(".col .title");
+  var insDescriptions = $(".col .subtitle");
+
+  function loadInstitutions() {
+    $.ajax({
+      url: "http://localhost:8080/api/institutions/",
+      type: "GET",
+      contentType: "application/json"
+    }).done(function (result) {
+      $.each(result, function (i, institution) {
+        insTitles.eq(i).innerText = "Fundacja " + institution.title;
+        insDescriptions.eq(i).innerText = "Cel i misja: " + institution.description;
+      })
+      });
+      }
+
+    loadInstitutions();
+
+
   /**
    * Form Select
    */
