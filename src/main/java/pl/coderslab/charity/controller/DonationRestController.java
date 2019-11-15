@@ -21,4 +21,12 @@ public class DonationRestController {
 
     }
 
+    @GetMapping("/countsupins")
+    public Long countSupported() {
+
+        Long insCount = donationService.countAllSupportedInstitutions();
+        return insCount;
+
+    }
+
 }
