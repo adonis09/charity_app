@@ -8,7 +8,7 @@ import pl.coderslab.charity.service.InstitutionService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/ins")
 public class InstitutionRestController {
 
     @Autowired
