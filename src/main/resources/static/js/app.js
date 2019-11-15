@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadInstitutions();
 
-    //displaying bags count
+    //displaying donated bags count
 
     var bagsCountDisplay = $("#stats > div > div:nth-child(1) > em");
 
@@ -39,6 +39,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadBagsCount();
 
+    //displaying supported institutions count
+
+    var supInsCountDisplay = $("#stats > div > div:nth-child(2) > em");
+
+    function loadSupInsCount() {
+        $.ajax({
+            url: "http://localhost:8080/don/countsupins/",
+            type: "GET",
+            contentType: "application/json"
+        }).done(function (result) {
+            console.log(result);
+            supInsCountDisplay.append(result);
+        });
+    }
+
+    loadSupInsCount();
 
     /**
      * Form Select
