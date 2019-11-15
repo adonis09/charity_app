@@ -10,14 +10,15 @@ document.addEventListener("DOMContentLoaded", function() {
       contentType: "application/json"
     }).done(function (result) {
       $.each(result, function (i, institution) {
-        insTitles.eq(i).innerText = "Fundacja " + institution.title;
-        insDescriptions.eq(i).innerText = "Cel i misja: " + institution.description;
+        var currentTitle = insTitles[i];
+        currentTitle.innerText = "Fundacja \"" + institution.name + "\"";
+        var currentDescription = insDescriptions[i];
+        currentDescription.innerText = "Cel i misja: " + institution.description;
       })
-      });
-      }
+    });
+  }
 
-    loadInstitutions();
-
+  loadInstitutions();
 
   /**
    * Form Select
