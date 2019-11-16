@@ -7,11 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadInstitutions() {
         $.ajax({
-            url: "http://localhost:8080/ins/institutions/",
+            url: "http://localhost:8080/institution/",
             type: "GET",
             contentType: "application/json"
         }).done(function (result) {
             $.each(result, function (i, institution) {
+                console.log("read inst");
                 var currentTitle = insTitles[i];
                 currentTitle.innerText = "Fundacja \"" + institution.name + "\"";
                 var currentDescription = insDescriptions[i];
@@ -28,11 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadBagsCount() {
         $.ajax({
-            url: "http://localhost:8080/don/countbags/",
+            url: "http://localhost:8080/donation/count/bags/",
             type: "GET",
             contentType: "application/json"
         }).done(function (result) {
-            console.log(result);
             bagsCountDisplay.append(result);
         });
     }
@@ -45,11 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadSupInsCount() {
         $.ajax({
-            url: "http://localhost:8080/don/countsupins/",
+            url: "http://localhost:8080/donation/count/supins/",
             type: "GET",
             contentType: "application/json"
         }).done(function (result) {
-            console.log(result);
             supInsCountDisplay.append(result);
         });
     }

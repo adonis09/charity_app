@@ -7,25 +7,23 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.coderslab.charity.service.DonationService;
 
 @RestController
-@RequestMapping("/don")
+@RequestMapping("/donation")
 public class DonationRestController {
 
     @Autowired
     private DonationService donationService;
 
-    @GetMapping("/countbags")
+    @GetMapping("/count/bags")
     public Long countBags() {
 
-        Long bagsCount = donationService.countAllBagsFromAllDonations();
-        return bagsCount;
+        return donationService.countAllBagsFromAllDonations();
 
     }
 
-    @GetMapping("/countsupins")
+    @GetMapping("/count/supins")
     public Long countSupported() {
 
-        Long insCount = donationService.countAllSupportedInstitutions();
-        return insCount;
+        return donationService.countAllSupportedInstitutions();
 
     }
 

@@ -8,17 +8,16 @@ import pl.coderslab.charity.service.InstitutionService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ins")
+@RequestMapping("/institution")
 public class InstitutionRestController {
 
     @Autowired
     private InstitutionService institutionService;
 
-    @GetMapping("/institutions")
+    @GetMapping("/")
     public List<Institution> getInstitutions() {
 
-        List<Institution> institutionsList = institutionService.findAll();
-        return institutionsList;
+        return institutionService.findAll();
 
     }
 }
