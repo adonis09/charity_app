@@ -2,8 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //displaying institutions
 
-    var insTitles = $(".col .title");
-    var insDescriptions = $(".col .subtitle");
+    var ulIns = $("ul.help--slides-items");
 
     function loadInstitutions() {
         $.ajax({
@@ -11,16 +10,54 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "GET",
             contentType: "application/json"
         }).done(function (result) {
-            $.each(result, function (i, institution) {
-                console.log("read inst");
-                var currentTitle = insTitles[i];
-                currentTitle.innerText = "Fundacja \"" + institution.name + "\"";
-                var currentDescription = insDescriptions[i];
-                currentDescription.innerText = "Cel i misja: " + institution.description;
-            })
-        });
-    }
+                for (let i = 0; i < result.length; i++) {
+                    if (result.length % 2 === 0) {
+                        if (i % 2 === 0) {
+                            let inst = result[i];
+                            let nextInst = result[i + 1];
+                            ulIns.append(
+                                "<li>" +
+                                "   <div class=\"col\">" +
+                                "       <div class=\"title\">" + "Fundacja \"" + inst.name + "\"" + "</div>" +
+                                "       <div class=\"subtitle\">" + "Cel i misja: " + inst.description + "</div>" +
+                                "   </div>" +
+                                "   <div class=\"col\">" +
+                                "       <div class=\"title\">" + "Fundacja \"" + nextInst.name + "\"" + "</div>" +
+                                "       <div class=\"subtitle\">" + "Cel i misja: " + nextInst.description + "</div>" +
+                                "   </div>" +
+                                "</li>");
 
+                        }
+                    } else {
+                        if (i % 2 === 0 && i != result.length - 1) {
+                            let inst = result[i];
+                            let nextInst = result[i + 1];
+                            ulIns.append(
+                                "<li>" +
+                                "   <div class=\"col\">" +
+                                "       <div class=\"title\">" + "Fundacja \"" + inst.name + "\"" + "</div>" +
+                                "       <div class=\"subtitle\">" + "Cel i misja: " + inst.description + "</div>" +
+                                "   </div>" +
+                                "   <div class=\"col\">" +
+                                "       <div class=\"title\">" + "Fundacja \"" + nextInst.name + "\"" + "</div>" +
+                                "       <div class=\"subtitle\">" + "Cel i misja: " + nextInst.description + "</div>" +
+                                "   </div>" +
+                                "</li>");
+                        } else if (i === result.length -1) {
+                            let lastInst = result[i];
+                            ulIns.append(
+                                "<li>" +
+                                "   <div class=\"col\">" +
+                                "       <div class=\"title\">" + "Fundacja \"" + lastInst.name + "\"" + "</div>" +
+                                "       <div class=\"subtitle\">" + "Cel i misja: " + lastInst.description + "</div>" +
+                                "   </div>" +
+                                "</li>");
+                        }
+                    }
+                }
+            }
+        );
+    }
     loadInstitutions();
 
     //displaying donated bags count
@@ -36,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
             bagsCountDisplay.append(result);
         });
     }
-
     loadBagsCount();
 
     //displaying supported institutions count
@@ -52,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
             supInsCountDisplay.append(result);
         });
     }
-
     loadSupInsCount();
 
     /**
