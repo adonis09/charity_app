@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 "       <div class=\"subtitle\">" + "Cel i misja: " + nextInst.description + "</div>" +
                                 "   </div>" +
                                 "</li>");
-                        } else if (i === result.length -1) {
+                        } else if (i === result.length - 1) {
                             let lastInst = result[i];
                             ulIns.append(
                                 "<li>" +
@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
     }
+
     loadInstitutions();
 
     //displaying donated bags count
@@ -73,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
             bagsCountDisplay.append(result);
         });
     }
+
     loadBagsCount();
 
     //displaying supported institutions count
@@ -88,7 +90,35 @@ document.addEventListener("DOMContentLoaded", function () {
             supInsCountDisplay.append(result);
         });
     }
+
     loadSupInsCount();
+
+    //displaying categories in from step 1
+
+    var categoriesHeader = $("body > section > div.form--steps-container > form > div.active > h3");
+
+    function loadCategories() {
+        $.ajax({
+            url: "http://localhost:8080/category/",
+            type: "GET",
+            contentType: "application/json"
+        }).done(function (result) {
+            let categories = "";
+            $.each(result, function (i, category) {
+                categories +=
+                    "<div class=\"form-group form-group--checkbox\">" +
+                    "   <label>" +
+                    "       <input type=\"checkbox\" name=\"categories\" value=\"" + category.name + "\"/>" +
+                    "       <span class=\"checkbox\"></span>" +
+                    "       <span class=\"description\">" + category.description + "</span>" +
+                    "   </label>" +
+                    "</div>";
+            });
+            categoriesHeader.after(categories);
+        });
+    }
+
+    loadCategories();
 
     /**
      * Form Select
