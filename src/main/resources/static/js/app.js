@@ -120,6 +120,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadCategories();
 
+    //displaying institutions based on selected categories
+
+    var categoriesBtn = $("body > section > div.form--steps-container > form > div.active > div.form-group.form-group--buttons > button");
+
+    categoriesBtn.on('click', function (loadSelectedInst) {
+        console.log("clicked 'DALEJ' after selecting categories")
+    });
+
     /**
      * Form Select
      */

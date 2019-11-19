@@ -22,6 +22,9 @@ public class Institution {
     private String description;
 
     @ManyToMany
+    @JoinTable(name = "institution_category",
+            joinColumns = @JoinColumn(name = "institution_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories = new ArrayList<>();
 
 }
