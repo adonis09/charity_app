@@ -71,7 +71,12 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "GET",
             contentType: "application/json"
         }).done(function (result) {
-            bagsCountDisplay.append(result);
+            bagsCountDisplay.empty();
+            if(result === ""){
+                bagsCountDisplay.append("0");
+            }else{
+                bagsCountDisplay.append(result);
+            }
         });
     }
 
@@ -87,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "GET",
             contentType: "application/json"
         }).done(function (result) {
+            supInsCountDisplay.empty();
             supInsCountDisplay.append(result);
         });
     }
