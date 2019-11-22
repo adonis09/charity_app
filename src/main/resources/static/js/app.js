@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function() {
 
     //displaying institutions
 
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadSupInsCount();
 
-    //displaying categories in from step 1
+    //displaying categories in form step 1
 
     var categoriesHeader = $("body > section > div.form--steps-container > form > div.active > h3");
 
@@ -128,11 +128,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //displaying institutions based on selected categories
 
-    var categoriesBtn = $("body > section > div.form--steps-container > form > div.active > div.form-group.form-group--buttons > button");
+        var checkBoxes = $('div[data-step="1"] > div.form-group.form-group--checkbox > label > input[type=checkbox]');
+        var checkedCheckBoxes = [];
 
-    categoriesBtn.on('click', function (loadSelectedInst) {
-        console.log("clicked 'DALEJ' after selecting categories")
-    });
+        var categoriesBtn = $("body > section > div.form--steps-container > form > div.active > div.form-group.form-group--buttons > button");
+
+        categoriesBtn.on('click', function (loadSelectedInst) {
+
+            console.log("button \"" + $(this).text() + "\" clicked");
+
+            console.log(checkBoxes);
+
+            console.log(checkBoxes.get());
+
+            checkBoxes.each(function (index, element) {
+                console.log($(element).attr('value'));
+            });
+        });
 
     /**
      * Form Select
