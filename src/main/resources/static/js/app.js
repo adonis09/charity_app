@@ -1,8 +1,10 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     //displaying institutions
 
     var ulIns = $("ul.help--slides-items");
+
+    var allInstitutions;
 
     function loadInstitutions() {
         $.ajax({
@@ -10,6 +12,7 @@ $(document).ready(function() {
             type: "GET",
             contentType: "application/json"
         }).done(function (result) {
+                allInstitutions = result;
                 for (let i = 0; i < result.length; i++) {
                     if (result.length % 2 === 0) {
                         if (i % 2 === 0) {
@@ -72,9 +75,9 @@ $(document).ready(function() {
             contentType: "application/json"
         }).done(function (result) {
             bagsCountDisplay.empty();
-            if(result === ""){
+            if (result === "") {
                 bagsCountDisplay.append("0");
-            }else{
+            } else {
                 bagsCountDisplay.append(result);
             }
         });
@@ -125,26 +128,6 @@ $(document).ready(function() {
     }
 
     loadCategories();
-
-    //displaying institutions based on selected categories
-
-        var checkBoxes = $('div[data-step="1"] > div.form-group.form-group--checkbox > label > input[type=checkbox]');
-        var checkedCheckBoxes = [];
-
-        var categoriesBtn = $("body > section > div.form--steps-container > form > div.active > div.form-group.form-group--buttons > button");
-
-        categoriesBtn.on('click', function (loadSelectedInst) {
-
-            console.log("button \"" + $(this).text() + "\" clicked");
-
-            console.log(checkBoxes);
-
-            console.log(checkBoxes.get());
-
-            checkBoxes.each(function (index, element) {
-                console.log($(element).attr('value'));
-            });
-        });
 
     /**
      * Form Select
@@ -311,8 +294,74 @@ $(document).ready(function() {
             this.$step.parentElement.hidden = this.currentStep >= 5;
 
             // TODO: get data from inputs and show them in summary
-        }
 
+            var step3 = $('body > section > div.form--steps-container > form > div[data-step="3"]');
+
+            var checkBoxes = $('div[data-step="1"] > div.form-group.form-group--checkbox > label > input[type=checkbox]');
+
+            var pickedCategories = [];
+
+            if (step3.hasClass("active")) {
+
+                //saving picked categories names into pickedCategories array;
+
+                var pickedInstitutions = [];
+
+                checkBoxes.each(function (index, element) {
+                    if ($(element).is(':checked')) {
+                        pickedCategories.push($(element).attr('value'));
+                    }
+                });
+
+                //going through every institution's categories and comparing them with pickedCategories
+
+                $(allInstitutions).each(function (index2, oneInstitution) {
+
+                    if (oneInstitution.categories.length === pickedCategories.length) {
+
+                        console.log("institution matching length: " + oneInstitution.name);
+
+                        let currentInstitutionCategories = oneInstitution.categories;
+                        let oneInstitutionCategoriesNames = [];
+
+                        $(currentInstitutionCategories).each(function (index3, oneCategory) {
+                            oneInstitutionCategoriesNames.push(oneCategory.name);
+                        });
+
+                        console.log("inst   categories: " + oneInstitutionCategoriesNames.sort().join());
+                        console.log("picked categories: " + pickedCategories.sort().join());
+
+                        if (oneInstitutionCategoriesNames.sort().join() === pickedCategories.sort().join()) {
+                            pickedInstitutions.push(oneInstitution);
+                        }
+                    }
+                });
+
+                var pickedInstitutionsButton = $('div[data-step="3"] > div.form-group.form-group--buttons');
+
+                $(pickedInstitutions).each(function (index4, onePickedInstitution) {
+
+                    pickedInstitutionsButton.before("" +
+                        "<div class=\"form-group form-group--checkbox\">" +
+                        "   <label>" +
+                        "       <input type=\"radio\" name=\"organization\" value=\"old\"/>" +
+                        "       <span class=\"checkbox radio\"></span>" +
+                        "       <span class=\"description\">" +
+                        "           <div class=\"title\">" + "Fundacja \"" + onePickedInstitution.name + "\"</div>" +
+                        "           <div class=\"subtitle\">" + "Cel i misja: " + onePickedInstitution.description + "</div>" +
+                        "       </span>" +
+                        "   </label>" +
+                        "</div>"
+                    );
+                });
+
+                console.log(pickedInstitutions);
+
+            }
+
+            var step2 = $('body > section > div.form--steps-container > form > div[data-step="2"]');
+
+        }
     }
 
     const form = document.querySelector(".form--steps");
