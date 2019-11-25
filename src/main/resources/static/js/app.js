@@ -319,8 +319,6 @@ $(document).ready(function () {
 
                     if (oneInstitution.categories.length === pickedCategories.length) {
 
-                        console.log("institution matching length: " + oneInstitution.name);
-
                         let currentInstitutionCategories = oneInstitution.categories;
                         let oneInstitutionCategoriesNames = [];
 
@@ -328,20 +326,21 @@ $(document).ready(function () {
                             oneInstitutionCategoriesNames.push(oneCategory.name);
                         });
 
-                        console.log("inst   categories: " + oneInstitutionCategoriesNames.sort().join());
-                        console.log("picked categories: " + pickedCategories.sort().join());
-
                         if (oneInstitutionCategoriesNames.sort().join() === pickedCategories.sort().join()) {
                             pickedInstitutions.push(oneInstitution);
                         }
                     }
                 });
 
+                //TODO: if there is no exact match...
+
                 var pickedInstitutionsButton = $('div[data-step="3"] > div.form-group.form-group--buttons');
+
+                var institutionsToDisplay = "";
 
                 $(pickedInstitutions).each(function (index4, onePickedInstitution) {
 
-                    pickedInstitutionsButton.before("" +
+                    institutionsToDisplay +=
                         "<div class=\"form-group form-group--checkbox\">" +
                         "   <label>" +
                         "       <input type=\"radio\" name=\"organization\" value=\"old\"/>" +
@@ -351,16 +350,16 @@ $(document).ready(function () {
                         "           <div class=\"subtitle\">" + "Cel i misja: " + onePickedInstitution.description + "</div>" +
                         "       </span>" +
                         "   </label>" +
-                        "</div>"
-                    );
+                        "</div>";
                 });
+
+                $('div[data-step="3"] > div.form-group.form-group--checkbox').remove();
+
+                pickedInstitutionsButton.before(institutionsToDisplay);
 
                 console.log(pickedInstitutions);
 
             }
-
-            var step2 = $('body > section > div.form--steps-container > form > div[data-step="2"]');
-
         }
     }
 
