@@ -313,7 +313,7 @@ $(document).ready(function () {
                     }
                 });
 
-                //going through every institution's categories and comparing them with pickedCategories
+                    //going through every institution's categories and comparing them with pickedCategories
 
                 $(allInstitutions).each(function (index2, oneInstitution) {
 
@@ -333,6 +333,11 @@ $(document).ready(function () {
                 });
 
                 //TODO: if there is no exact match...
+
+                if (jQuery.isEmptyObject(pickedInstitutions)) {
+                    console.log("there are no institutions matching selected categories");
+
+                }
 
                 var pickedInstitutionsButton = $('div[data-step="3"] > div.form-group.form-group--buttons');
 
@@ -358,8 +363,40 @@ $(document).ready(function () {
                 pickedInstitutionsButton.before(institutionsToDisplay);
 
                 console.log(pickedInstitutions);
+                console.log(pickedCategories);
 
             }
+
+            console.log(pickedCategories);
+
+            var step5 = $('body > section > div.form--steps-container > form > div[data-step="5"]');
+
+            if (step5.hasClass("active")) {
+
+                var donationBagCount = $('div[data-step="2"] > div.form-group.form-group--inline > label > input[type=number]').val();
+                console.log("bags: " + donationBagCount);
+
+                var donationBagCountDisplay = $('div[data-step="5"] > div.summary > div:nth-child(1) > ul > li:nth-child(1) > span.summary--text');
+                donationBagCountDisplay.empty();
+                donationBagCountDisplay.append("ilość worków: " + donationBagCount);
+
+
+                var donationInstitution = null;
+                var availableInstitutions = $('div[data-step="3"] > div.form-group.form-group--checkbox');
+                availableInstitutions.each(function (index, oneAvailableInstitution) {
+                    if($(oneAvailableInstitution).prop("checked", true)){
+                        donationInstitution = oneAvailableInstitution;
+                        console.log("a donationInstitution is checked!")
+                    }
+                });
+
+                var donationInstitutionDisplay = $('div[data-step="5"] > div.summary > div:nth-child(1) > ul > li:nth-child(2) > span.summary--text');
+
+                donationInstitutionDisplay.empty();
+                donationInstitutionDisplay.append("dla fundacji: ");
+
+            }
+
         }
     }
 
